@@ -19,6 +19,27 @@ const AddScreen = ({ navigation }) => {
   const handleAddXeMay = () => {
     console.log('AddScreen: Bắt đầu quá trình thêm xe mới'); // Log khi bắt đầu quá trình thêm xe
 
+     // Kiểm tra tính hợp lệ của các trường
+  if (!tenXe.trim()) {
+    Alert.alert('Lỗi', 'Tên xe không được để trống.');
+    return;
+  }
+  if (!mauSac.trim()) {
+    Alert.alert('Lỗi', 'Màu sắc không được để trống.');
+    return;
+  }
+  if (!giaBan.trim() || isNaN(parseFloat(giaBan)) || parseFloat(giaBan) <= 0) {
+    Alert.alert('Lỗi', 'Giá bán phải là một số dương hợp lệ.');
+    return;
+  }
+  if (!moTa.trim()) {
+    Alert.alert('Lỗi', 'Mô tả không được để trống.');
+    return;
+  }
+  if (!hinhAnh.trim()) {
+    Alert.alert('Lỗi', 'Bạn phải chọn một hình ảnh.');
+    return;
+  }
     const newXeMay = {
       ten_xe_PH32251: tenXe,
       mau_sac_PH32251: mauSac,
