@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, Button, StyleSheet, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { deleteXeMay } from '../redux/XeMaySlice';
 
@@ -7,7 +7,25 @@ const XeMayItem = ({ xeMay, navigation }) => {
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteXeMay(xeMay.id));
+    Alert.alert(
+      'Xác nhận',
+      'Bạn có chắc chắn muốn xóa xe này không?',
+      [
+        {
+          text: 'Không',
+          onPress: () => console.log('Hủy xóa'),
+          style: 'cancel',
+        },
+        {
+          text: 'Có',
+          onPress: () => {
+            dispatch(deleteXeMay(xeMay.id));
+            console.log('Xe đã bị xóa');
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -27,7 +45,7 @@ const XeMayItem = ({ xeMay, navigation }) => {
         <Button
           title="Xóa"
           color="red"
-          onPress={handleDelete} // Gọi trực tiếp hàm xóa mà không điều hướng
+          onPress={handleDelete}
         />
       </View>
     </View>
