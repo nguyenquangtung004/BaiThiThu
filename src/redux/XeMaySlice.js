@@ -1,6 +1,31 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+//Thunk trong lập trình là một thuật ngữ dùng để chỉ một hàm được sử dụng như một đối số để trì hoãn việc tính toán.
+// Trong ngữ cảnh của Redux, thunk thường là một hàm trả về một hàm khác.
+// Redux Thunk là một middleware cho Redux cho phép bạn viết các action creators trả về một hàm thay vì một đối tượng action.
+//  Thông thường, các action creators chỉ có thể trả về các đối tượng (actions), 
+// nhưng khi sử dụng Redux Thunk, bạn có thể viết các action creators trả về một hàm có thể thực hiện các tác vụ bất đồng bộ (như gọi API) trước khi dispatch một action thông thường.
+
+// Ví dụ ; Trong đoạn mã trên, fetchXeMays là một thunk. 
+//Thay vì trả về một đối tượng action thông thường, nó trả về một hàm bất đồng bộ (async) để thực hiện một yêu cầu API. Khi API hoàn tất, 
+//dữ liệu sẽ được trả về và Redux sẽ xử lý nó thông qua các case được xác định trong extraReducers
 // URL API
+//------------------------------------------------------------//
+//Trong trường hợp này, bạn sử dụng export để xuất các thunk 
+//(fetchXeMays, addXeMay, updateXeMay, deleteXeMay) và XeMaySlice.reducer để có thể sử dụng chúng ở các nơi khác trong ứng dụng của bạn.
+//------------------------------------------------------------//
+//createSlice là một hàm từ @reduxjs/toolkit giúp bạn dễ dàng tạo ra các slice của Redux store. Một "slice" bao gồm reducer và state ban đầu của nó, 
+//cũng như các action creators tự động được tạo dựa trên các reducers bạn định nghĩa.
+
+//createSlice nhận một đối tượng chứa các thuộc tính như:
+// name: Tên của slice. Đây là tên duy nhất giúp phân biệt slice này với các slice khác trong store.
+// initialState: Trạng thái ban đầu của slice.
+// reducers: Nơi bạn định nghĩa các hàm để xử lý các action trong slice này.
+// extraReducers: Dùng để xử lý các actions không được tạo ra bởi reducers trong slice này, thường là các actions từ createAsyncThunk.
+//-----------------------------------------------------------//
+// extraReducers cho phép slice xử lý các actions được tạo ra từ bên ngoài (như từ các thunk). 
+// Khi một thunk được gọi, nó sẽ trải qua các trạng thái pending, fulfilled, và rejected,
+//  và bạn có thể sử dụng extraReducers để xử lý các trạng thái này.
 const API_URL = 'http://192.168.1.41:3000/XeMay';
 
 // Thunk lấy danh sách xe
