@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet } from 'react-native';
+import { View, TextInput, Button, Text, StyleSheet ,Alert} from 'react-native';
 import { useDispatch } from 'react-redux';
 import { updateXeMay } from '../redux/XeMaySlice';
 import ImagePicker from 'react-native-image-picker';
@@ -17,6 +17,29 @@ const EditScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   const handleUpdateXeMay = () => {
+
+     // Kiểm tra tính hợp lệ của các trường
+  if (!tenXe.trim()) {
+    Alert.alert('Lỗi', 'Tên xe không được để trống.');
+    return;
+  }
+  if (!mauSac.trim()) {
+    Alert.alert('Lỗi', 'Màu sắc không được để trống.');
+    return;
+  }
+  if (!giaBan.trim() || isNaN(parseFloat(giaBan)) || parseFloat(giaBan) <= 0) {
+    Alert.alert('Lỗi', 'Giá bán phải là một số dương hợp lệ.');
+    return;
+  }
+  if (!moTa.trim()) {
+    Alert.alert('Lỗi', 'Mô tả không được để trống.');
+    return;
+  }
+  if (!hinhAnh.trim()) {
+    Alert.alert('Lỗi', 'Bạn phải chọn một hình ảnh.');
+    return;
+  }
+
     const updatedXeMay = {
       id: xeMay.id,
       ten_xe_PH32251: tenXe,
